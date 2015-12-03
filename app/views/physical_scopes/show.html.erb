@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @physical_scope.address %>
+</p>
+
+<p>
+  <strong>Land area:</strong>
+  <%= @physical_scope.land_area %>
+</p>
+
+<p>
+  <strong>Boundaries:</strong>
+  <%= @physical_scope.boundaries %>
+</p>
+
+<p>
+  <strong>Use of premises:</strong>
+  <%= @physical_scope.use_of_premises %>
+</p>
+
+<p>
+  <strong>Contract:</strong>
+  <%= @physical_scope.contract %>
+</p>
+
+<%= link_to 'Edit', edit_physical_scope_path(@physical_scope) %> |
+<%= link_to 'Back', physical_scopes_path %>

@@ -1,0 +1,39 @@
+require 'rails_helper'
+
+RSpec.describe "financial_terms/edit", type: :view do
+  before(:each) do
+    @financial_term = assign(:financial_term, FinancialTerm.create!(
+      :payer => "MyString",
+      :payee => "MyString",
+      :amount => "9.99",
+      :frequency => "MyString",
+      :escalation_rate => "9.99",
+      :advance => "9.99",
+      :deposit => "9.99",
+      :contract => nil
+    ))
+  end
+
+  it "renders the edit financial_term form" do
+    render
+
+    assert_select "form[action=?][method=?]", financial_term_path(@financial_term), "post" do
+
+      assert_select "input#financial_term_payer[name=?]", "financial_term[payer]"
+
+      assert_select "input#financial_term_payee[name=?]", "financial_term[payee]"
+
+      assert_select "input#financial_term_amount[name=?]", "financial_term[amount]"
+
+      assert_select "input#financial_term_frequency[name=?]", "financial_term[frequency]"
+
+      assert_select "input#financial_term_escalation_rate[name=?]", "financial_term[escalation_rate]"
+
+      assert_select "input#financial_term_advance[name=?]", "financial_term[advance]"
+
+      assert_select "input#financial_term_deposit[name=?]", "financial_term[deposit]"
+
+      assert_select "input#financial_term_contract_id[name=?]", "financial_term[contract_id]"
+    end
+  end
+end

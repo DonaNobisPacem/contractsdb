@@ -1,0 +1,15 @@
+<%= simple_form_for(@physical_scope) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :address %>
+    <%= f.input :land_area %>
+    <%= f.input :boundaries %>
+    <%= f.input :use_of_premises %>
+    <%= f.association :contract %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

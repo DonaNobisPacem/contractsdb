@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Physical Scopes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Land area</th>
+      <th>Boundaries</th>
+      <th>Use of premises</th>
+      <th>Contract</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @physical_scopes.each do |physical_scope| %>
+      <tr>
+        <td><%= physical_scope.address %></td>
+        <td><%= physical_scope.land_area %></td>
+        <td><%= physical_scope.boundaries %></td>
+        <td><%= physical_scope.use_of_premises %></td>
+        <td><%= physical_scope.contract %></td>
+        <td><%= link_to 'Show', physical_scope %></td>
+        <td><%= link_to 'Edit', edit_physical_scope_path(physical_scope) %></td>
+        <td><%= link_to 'Destroy', physical_scope, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Physical scope', new_physical_scope_path %>

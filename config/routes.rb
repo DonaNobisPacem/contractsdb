@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :physical_scopes
+  resources :financial_terms
+  resources :committee_members
+  resources :committees
+  resources :parties
+  resources :contract_types
+  resources :contracts
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

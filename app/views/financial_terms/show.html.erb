@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Payer:</strong>
+  <%= @financial_term.payer %>
+</p>
+
+<p>
+  <strong>Payee:</strong>
+  <%= @financial_term.payee %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @financial_term.amount %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @financial_term.frequency %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @financial_term.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @financial_term.end_date %>
+</p>
+
+<p>
+  <strong>Escalation rate:</strong>
+  <%= @financial_term.escalation_rate %>
+</p>
+
+<p>
+  <strong>Advance:</strong>
+  <%= @financial_term.advance %>
+</p>
+
+<p>
+  <strong>Deposit:</strong>
+  <%= @financial_term.deposit %>
+</p>
+
+<p>
+  <strong>Contract:</strong>
+  <%= @financial_term.contract %>
+</p>
+
+<%= link_to 'Edit', edit_financial_term_path(@financial_term) %> |
+<%= link_to 'Back', financial_terms_path %>

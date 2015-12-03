@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Contract type:</strong>
+  <%= @contract.contract_type %>
+</p>
+
+<p>
+  <strong>Objectives:</strong>
+  <%= @contract.objectives %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @contract.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @contract.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>
