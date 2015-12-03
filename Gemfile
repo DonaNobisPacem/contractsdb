@@ -43,6 +43,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'shoulda-matchers'
   gem 'shoulda-callback-matchers'
+  gem 'simplecov', :require => false
 end
 
 group :development do
