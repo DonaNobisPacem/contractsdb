@@ -21,12 +21,29 @@ RSpec.describe Contract, type: :model do
   		end
   	end
 
-    context "Financial Terms Validations"
+    context "Contract Type Validations" do
+      it "is valid when contract_type exist" do
+        expect( FactoryGirl.build(:contract, contract_type: 1 ) ).to be_valid
+        expect( FactoryGirl.build(:contract, contract_type: 2 ) ).to be_valid
+        expect( FactoryGirl.build(:contract, contract_type: 3 ) ).to be_valid
+      end
+
+      it "is invalid when contract_type does not exist" do
+        expect( FactoryGirl.build(:contract, contract_type: 4 ) ).not_to be_valid
+      end
+    end
   end
 
   describe "ActiveRecord Validations" do
-  	it { should have_many(:parties) }
-  	it { should have_many(:committees) }
+    it { should have_one(:financial_term) }
+    it { should have_one(:physical_scope) }
+    it { should have_many(:parties) }
+    it { should have_many(:committees) }
+
+    it { should accept_nested_attributes_for(:financial_term).allow_destroy(true) }
+    it { should accept_nested_attributes_for(:physical_scope).allow_destroy(true) }
+    it { should accept_nested_attributes_for(:parties).allow_destroy(true) }
+    it { should accept_nested_attributes_for(:committees).allow_destroy(true) }
   end
 end
 

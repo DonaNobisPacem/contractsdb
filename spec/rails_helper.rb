@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'database_cleaner'
 require 'simplecov'
 SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -58,6 +59,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
+  end
 end
 
 Shoulda::Matchers.configure do |config|

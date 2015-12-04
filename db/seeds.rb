@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+ContractType.create(description: "Memorandum of Understanding​")
+ContractType.create(description: "Memorandum of Agreement")
+ContractType.create(description: "Contract of Lease")

@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :party do
-    party_name "MyString"
-external false
-contract nil
+    party_name { FFaker::Company.name }
+	external false
+	contract 
   end
 
 end
