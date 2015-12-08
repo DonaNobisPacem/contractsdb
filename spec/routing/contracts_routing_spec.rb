@@ -2,6 +2,9 @@ require "rails_helper"
 
 RSpec.describe ContractsController, type: :routing do
   describe "routing" do
+    it "has contracts index as root path" do
+      expect(:get => "/").to route_to("contracts#index")
+    end
 
     it "routes to #index" do
       expect(:get => "/contracts").to route_to("contracts#index")

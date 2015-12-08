@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  root 'contracts#index'
   resources :physical_scopes
   resources :financial_terms
   resources :committee_members
