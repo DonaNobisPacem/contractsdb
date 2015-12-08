@@ -23,12 +23,26 @@ RSpec.describe PartiesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Party. As you add validations to Party, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @contract = FactoryGirl.build(:contract)
+    @contract.save
+  end
+
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      party_name: "Party1",
+      external: false,
+      contract_id: @contract.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      party_name: "",
+      external: false,
+      contract_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +117,18 @@ RSpec.describe PartiesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          party_name: "Party2",
+          external: false,
+          contract_id: @contract.id
+        }
       }
 
       it "updates the requested party" do
         party = Party.create! valid_attributes
         put :update, {:id => party.to_param, :party => new_attributes}, valid_session
         party.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:party).party_name).to eq(new_attributes[:party_name])
       end
 
       it "assigns the requested party as @party" do

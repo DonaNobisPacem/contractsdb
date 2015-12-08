@@ -69,6 +69,54 @@ class ContractsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contract_params
-      params.require(:contract).permit(:contract_type, :objectives, :start_date, :end_date)
+      params.require(:contract).permit(
+        :contract_type, 
+        :objectives, 
+        :start_date, 
+        :end_date, 
+        financial_term_attributes: [
+          :id, 
+          :payer,
+          :payee,
+          :amount,
+          :frequency,
+          :start_date,
+          :end_date,
+          :escalation_rate,
+          :advance,
+          :deposit,
+          :contract_id,
+          :_destroy
+        ], 
+        physical_scope_attributes: [
+          :address,
+          :land_area,
+          :boundaries,
+          :use_of_premises,
+          :contract_id,
+          :_destroy
+        ],
+        commitees_attributes: [
+          :id,
+          :committee_name,
+          :responsibilites,          
+          :contract_id,
+          :_destroy,
+          commitee_members_attributes: [
+            :id,
+            :member_name,
+            :leader,
+            :commitee_id,
+            :_destroy
+          ]
+        ],
+        parties_attributes: [
+          :id,
+          :party_name,
+          :external,
+          :contract_id,
+          :_destroy
+        ]
+      )
     end
 end

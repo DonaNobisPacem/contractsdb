@@ -7,10 +7,10 @@ class Contract < ActiveRecord::Base
 	validate :check_contract_date
 	validate :check_contract_type
 
-	has_one :financial_term, dependent: :destroy
-	has_one :physical_scope, dependent: :destroy
-	has_many :parties, dependent: :destroy
-	has_many :committees, dependent: :destroy
+	has_one :financial_term, dependent: :destroy, inverse_of: :contract
+	has_one :physical_scope, dependent: :destroy, inverse_of: :contract
+	has_many :parties, dependent: :destroy, inverse_of: :contract
+	has_many :committees, dependent: :destroy, inverse_of: :contract
 
 	accepts_nested_attributes_for :financial_term, allow_destroy: true
 	accepts_nested_attributes_for :physical_scope, allow_destroy: true

@@ -24,11 +24,15 @@ RSpec.describe ContractTypesController, type: :controller do
   # ContractType. As you add validations to ContractType, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      description: "Contract Type 1"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      description: ""
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -40,7 +44,7 @@ RSpec.describe ContractTypesController, type: :controller do
     it "assigns all contract_types as @contract_types" do
       contract_type = ContractType.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:contract_types)).to eq([contract_type])
+      expect(assigns(:contract_types)).to eq(ContractType.all)
     end
   end
 
@@ -103,14 +107,16 @@ RSpec.describe ContractTypesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          description: "Updated ContractType"
+        }
       }
 
       it "updates the requested contract_type" do
         contract_type = ContractType.create! valid_attributes
         put :update, {:id => contract_type.to_param, :contract_type => new_attributes}, valid_session
         contract_type.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:contract_type).description).to match(new_attributes[:description])
       end
 
       it "assigns the requested contract_type as @contract_type" do

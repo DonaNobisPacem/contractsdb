@@ -1,5 +1,5 @@
 class FinancialTerm < ActiveRecord::Base
-  belongs_to :contract
+  belongs_to :contract, inverse_of: :financial_term
 
   validates :contract, presence: true
   validates_presence_of :payer, if: :is_under_lease?
@@ -12,10 +12,10 @@ class FinancialTerm < ActiveRecord::Base
   validates_presence_of :advance, if: :is_under_lease?
   validates_presence_of :deposit, if: :is_under_lease?
 
-  validates :amount, numericality: { :greater_than_or_equal_to => 0 }
-  validates :escalation_rate, numericality: { :greater_than_or_equal_to => 0 }
-  validates :advance, numericality: { :greater_than_or_equal_to => 0 }
-  validates :deposit, numericality: { :greater_than_or_equal_to => 0 }
+  validates :amount, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
+  validates :escalation_rate, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
+  validates :advance, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
+  validates :deposit, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
 
   validate :check_date
 

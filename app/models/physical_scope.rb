@@ -1,5 +1,5 @@
 class PhysicalScope < ActiveRecord::Base
-  belongs_to :contract
+  belongs_to :contract, inverse_of: :physical_scope
 
   validates :contract, presence: true
   validates_presence_of :address, if: :is_under_lease?
@@ -7,7 +7,7 @@ class PhysicalScope < ActiveRecord::Base
   validates_presence_of :boundaries, if: :is_under_lease?
   validates_presence_of :use_of_premises, if: :is_under_lease?
 
-  validates :land_area, numericality: { :greater_than_or_equal_to => 0 }
+  validates :land_area, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
 
   private
 

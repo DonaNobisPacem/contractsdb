@@ -23,12 +23,25 @@ RSpec.describe CommitteesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Committee. As you add validations to Committee, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @contract = FactoryGirl.build(:contract)
+    @contract.save
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      committee_name: "Committee 1",
+      responsibilities: "My responsibilities",
+      contract_id: @contract.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      committee_name: "",
+      responsibilities: "",
+      contract_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +116,18 @@ RSpec.describe CommitteesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          committee_name: "Committee 2",
+          responsibilities: "My responsibilities",
+          contract_id: @contract.id
+        }
       }
 
       it "updates the requested committee" do
         committee = Committee.create! valid_attributes
         put :update, {:id => committee.to_param, :committee => new_attributes}, valid_session
         committee.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:committee).committee_name).to eq(new_attributes[:committee_name])
       end
 
       it "assigns the requested committee as @committee" do

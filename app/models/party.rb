@@ -1,5 +1,5 @@
 class Party < ActiveRecord::Base
-  belongs_to :contract
+  belongs_to :contract, inverse_of: :parties
 
   validates :contract, presence: true
   validates :party_name, presence: true

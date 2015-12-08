@@ -23,12 +23,57 @@ RSpec.describe FinancialTermsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # FinancialTerm. As you add validations to FinancialTerm, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @nonlease_contract = FactoryGirl.build(:contract)
+    @nonlease_contract.save
+
+    @lease_contract = FactoryGirl.build(:contract, contract_type: 3)
+    @lease_contract.save
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      payer: "Payer",
+      payee: "Payee",
+      amount: "9.99",
+      frequency: "Frequency",
+      start_date: DateTime.now,
+      end_date: DateTime.now + 10,
+      escalation_rate: "9.99",
+      advance: "9.99",
+      deposit: "9.99",
+      contract_id: @lease_contract.id
+    }
+  }
+
+  let(:nonlease_valid_attributes) {
+    {
+      payer: "",
+      payee: "",
+      amount: "",
+      frequency: "",
+      start_date: "",
+      end_date: "",
+      escalation_rate: "",
+      advance: "",
+      deposit: "",
+      contract_id: @nonlease_contract.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      payer: "",
+      payee: "",
+      amount: "",
+      frequency: "",
+      start_date: DateTime.now,
+      end_date: DateTime.now - 10,
+      escalation_rate: "",
+      advance: "",
+      deposit: "",
+      contract_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -68,7 +113,7 @@ RSpec.describe FinancialTermsController, type: :controller do
   end
 
   describe "POST #create" do
-    context "with valid params" do
+    context "with lease valid params" do
       it "creates a new FinancialTerm" do
         expect {
           post :create, {:financial_term => valid_attributes}, valid_session
@@ -83,6 +128,25 @@ RSpec.describe FinancialTermsController, type: :controller do
 
       it "redirects to the created financial_term" do
         post :create, {:financial_term => valid_attributes}, valid_session
+        expect(response).to redirect_to(FinancialTerm.last)
+      end
+    end
+
+    context "with nonlease valid params" do
+      it "creates a new FinancialTerm" do
+        expect {
+          post :create, {:financial_term => nonlease_valid_attributes}, valid_session
+        }.to change(FinancialTerm, :count).by(1)
+      end
+
+      it "assigns a newly created financial_term as @financial_term" do
+        post :create, {:financial_term => nonlease_valid_attributes}, valid_session
+        expect(assigns(:financial_term)).to be_a(FinancialTerm)
+        expect(assigns(:financial_term)).to be_persisted
+      end
+
+      it "redirects to the created financial_term" do
+        post :create, {:financial_term => nonlease_valid_attributes}, valid_session
         expect(response).to redirect_to(FinancialTerm.last)
       end
     end
@@ -103,14 +167,25 @@ RSpec.describe FinancialTermsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          payer: "Updated Payer",
+          payee: "Updated Payee",
+          amount: "9.99",
+          frequency: "Frequency",
+          start_date: DateTime.now,
+          end_date: DateTime.now + 10,
+          escalation_rate: "9.99",
+          advance: "9.99",
+          deposit: "9.99",
+          contract_id: @lease_contract.id
+        }
       }
 
       it "updates the requested financial_term" do
         financial_term = FinancialTerm.create! valid_attributes
         put :update, {:id => financial_term.to_param, :financial_term => new_attributes}, valid_session
         financial_term.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:financial_term).payer).to eq(new_attributes[:payer])
       end
 
       it "assigns the requested financial_term as @financial_term" do

@@ -24,11 +24,64 @@ RSpec.describe ContractsController, type: :controller do
   # Contract. As you add validations to Contract, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      contract_type: 1,
+      objectives: "Valid objective",
+      start_date: DateTime.now,
+      end_date: DateTime.now + 10,
+      parties_attributes: [
+        {
+          party_name: "UP party",
+          external: false
+        },
+        {
+          party_name: "External party",
+          external: true
+        }
+      ],
+      financial_term_attributes: {
+        payer: "Payer",
+        payee: "Payee",
+        amount: "9.99",
+        frequency: "Frequency",
+        start_date: DateTime.now,
+        end_date: DateTime.now + 10,
+        escalation_rate: "9.99",
+        advance: "9.99",
+        deposit: "9.99"
+      },
+      committees_attributes: [
+        {
+          committee_name: "Committee 1",
+          responsibilities: "Commitee 1's responsibilities",
+          committee_members_attributes: [
+            {
+              member_name: "Leader",
+              leader: true
+            },
+            {
+              member_name: "Member",
+              leader: false
+            }
+          ]
+        }
+      ],
+      physical_scope_attributes: {
+        address: "Address",
+        land_area: "9.99",
+        boundaries: "Boundaries",
+        use_of_premises: "Use of premises"
+      }
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      contract_type: 4,
+      objectives: "",
+      start_date: DateTime.now,
+      end_date: DateTime.now - 10,
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +156,62 @@ RSpec.describe ContractsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          contract_type: 1,
+          objectives: "Updated objective",
+          start_date: DateTime.now,
+          end_date: DateTime.now + 10,
+          parties_attributes: [
+            {
+              party_name: "UP party",
+              external: false
+            },
+            {
+              party_name: "Updated External party",
+              external: true
+            }
+          ],
+          financial_term_attributes: {
+            payer: "Updated Payer",
+            payee: "Updated Payee",
+            amount: "9.99",
+            frequency: "Frequency",
+            start_date: DateTime.now,
+            end_date: DateTime.now + 10,
+            escalation_rate: "9.99",
+            advance: "9.99",
+            deposit: "9.99"
+          },
+          committees_attributes: [
+            {
+              committee_name: "Updated Committee 1",
+              responsibilities: "Updated Commitee 1's responsibilities",
+              committee_members_attributes: [
+                {
+                  member_name: "Updated Leader",
+                  leader: true
+                },
+                {
+                  member_name: "Updated Member",
+                  leader: false
+                }
+              ]
+            }
+          ],
+          physical_scope_attributes: {
+            address: "Address",
+            land_area: "9.99",
+            boundaries: "Updated Boundaries",
+            use_of_premises: "Updated Use of premises"
+          }
+        }
       }
 
       it "updates the requested contract" do
         contract = Contract.create! valid_attributes
         put :update, {:id => contract.to_param, :contract => new_attributes}, valid_session
         contract.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:contract).objectives).to match(new_attributes[:objectives])
       end
 
       it "assigns the requested contract as @contract" do

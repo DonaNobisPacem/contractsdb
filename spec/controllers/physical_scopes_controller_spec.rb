@@ -23,12 +23,42 @@ RSpec.describe PhysicalScopesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # PhysicalScope. As you add validations to PhysicalScope, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @nonlease_contract = FactoryGirl.build(:contract)
+    @nonlease_contract.save
+
+    @lease_contract = FactoryGirl.build(:contract, contract_type: 3)
+    @lease_contract.save
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      address: "Address",
+      land_area: "9.99",
+      boundaries: "Boundaries",
+      use_of_premises: "Use of premises",
+      contract_id: @lease_contract.id
+    }
+  }
+
+  let(:nonlease_valid_attributes) {
+    {
+      address: "",
+      land_area: "",
+      boundaries: "",
+      use_of_premises: "",
+      contract_id: @nonlease_contract.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      address: "",
+      land_area: "",
+      boundaries: "",
+      use_of_premises: "",
+      contract_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -87,6 +117,25 @@ RSpec.describe PhysicalScopesController, type: :controller do
       end
     end
 
+    context "with nonlease valid params" do
+      it "creates a new PhysicalScope" do
+        expect {
+          post :create, {:physical_scope => nonlease_valid_attributes}, valid_session
+        }.to change(PhysicalScope, :count).by(1)
+      end
+
+      it "assigns a newly created physical_scope as @physical_scope" do
+        post :create, {:physical_scope => nonlease_valid_attributes}, valid_session
+        expect(assigns(:physical_scope)).to be_a(PhysicalScope)
+        expect(assigns(:physical_scope)).to be_persisted
+      end
+
+      it "redirects to the created physical_scope" do
+        post :create, {:physical_scope => nonlease_valid_attributes}, valid_session
+        expect(response).to redirect_to(PhysicalScope.last)
+      end
+    end
+
     context "with invalid params" do
       it "assigns a newly created but unsaved physical_scope as @physical_scope" do
         post :create, {:physical_scope => invalid_attributes}, valid_session
@@ -103,14 +152,20 @@ RSpec.describe PhysicalScopesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          address: "Address2",
+          land_area: "9.99",
+          boundaries: "Boundaries",
+          use_of_premises: "Use of premises",
+          contract_id: @lease_contract.id
+        }
       }
 
       it "updates the requested physical_scope" do
         physical_scope = PhysicalScope.create! valid_attributes
         put :update, {:id => physical_scope.to_param, :physical_scope => new_attributes}, valid_session
         physical_scope.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:physical_scope).address).to eq(new_attributes[:address])
       end
 
       it "assigns the requested physical_scope as @physical_scope" do
