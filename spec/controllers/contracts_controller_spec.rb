@@ -89,11 +89,27 @@ RSpec.describe ContractsController, type: :controller do
   # ContractsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all contracts as @contracts" do
-      contract = Contract.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:contracts)).to eq([contract])
+  describe "GET #index" do    
+    context "Without a search parameter" do
+      it "assigns all contracts as @contracts" do
+        contract = Contract.create! valid_attributes
+        get :index, {}, valid_session
+        expect(assigns(:contracts)).to eq([contract])
+      end
+    end
+
+    context "With a search parameter" do
+      it "assigns only matching contracts as @contracts" do
+        contract = Contract.create! valid_attributes
+        get :index, {params[:search] => "Valid"}, valid_session
+        expect(assigns(:contracts).results).to eq([contract])
+      end
+
+      it "assigns only matching contracts as @contracts" do
+        contract = Contract.create! valid_attributes
+        get :index, {:search => "Invalid"}, valid_session
+        expect(assigns(:contracts).results).not_to eq([contract])
+      end
     end
   end
 

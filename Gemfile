@@ -69,3 +69,6 @@ gem 'google-webfonts-rails'
 # Pagination
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+
+# Search
+gem 'searchkick'

@@ -65,6 +65,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     Rails.application.load_seed
   end
+
+  config.before :each do
+    Contract.reindex
+  end
 end
 
 Shoulda::Matchers.configure do |config|

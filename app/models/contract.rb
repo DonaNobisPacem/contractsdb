@@ -17,6 +17,8 @@ class Contract < ActiveRecord::Base
 	accepts_nested_attributes_for :parties, allow_destroy: true
 	accepts_nested_attributes_for :committees, allow_destroy: true	
 
+	searchkick
+
 	private
 		def check_contract_date
 			if start_date.present? && end_date.present?
