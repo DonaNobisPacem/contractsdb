@@ -19,6 +19,10 @@ class Contract < ActiveRecord::Base
 
 	searchkick
 
+	def description
+		ContractType.find(contract_type).description
+	end
+
 	private
 		def check_contract_date
 			if start_date.present? && end_date.present?

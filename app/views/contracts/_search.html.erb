@@ -1,0 +1,14 @@
+<%= form_tag contracts_path, method: :get, role: "search" do %>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="input-group input-group-lg">
+	    	<%= text_field_tag :search, params[:search], :placeholder => "Search", class: "form-control" %>
+	    	<div class="input-group-btn">
+	    		<%= button_tag(type: "submit", class: "btn btn-info") do %>
+				    <i class="fa fa-search"></i> Search
+				<% end %>
+	    	</div>
+	    </div>
+	</div>
+</div>
+<% end %>

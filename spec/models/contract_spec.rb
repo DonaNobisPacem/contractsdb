@@ -45,6 +45,14 @@ RSpec.describe Contract, type: :model do
     it { should accept_nested_attributes_for(:parties).allow_destroy(true) }
     it { should accept_nested_attributes_for(:committees).allow_destroy(true) }
   end
+
+  describe "Custom functions validations" do
+    it "returns the correct contract type description" do
+      contract_type = ContractType.find(1) # or 2 or 3
+      contract = FactoryGirl.create(:contract, contract_type: contract_type.id)
+      expect(contract.description).to eq(contract_type.description)
+    end
+  end
 end
 
 # contract_type 1

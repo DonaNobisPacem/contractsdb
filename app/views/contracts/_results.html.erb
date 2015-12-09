@@ -1,0 +1,20 @@
+<div class="row">
+  <% @contracts.each do |contract| %>
+    <%= link_to contract do %>
+      <div class="col-md-4">
+        <div class="panel <%= conditional_div(contract.contract_type) %>">
+          <div class="panel-heading">
+            <div class="text-center">
+              <%= contract.description %>
+            </div>
+          </div>
+          <div class="panel-body">
+            <b>Objectives: </b> <%= truncate( simple_format( contract.objectives ), length: 50 ) %> <br>
+            <b>Start Date: </b> <%= contract.start_date.strftime("%d %B %Y") %> <br>
+            <b>End Date: </b> <%= contract.end_date.strftime("%d %B %Y") %> <br>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
