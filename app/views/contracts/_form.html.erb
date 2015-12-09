@@ -2,13 +2,96 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :contract_type %>
-    <%= f.input :objectives %>
-    <%= f.input :start_date %>
-    <%= f.input :end_date %>
+    <%= f.input :contract_type, :collection => ContractType.all, :label_method => :description, :include_blank => false, :label => "Contract Type:" %>
+
+    <div id="objectives">
+      <div class="strike">
+        <span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>
+      </div>
+
+      <%= f.input :objectives, :label => "Contract Objectives:" %>
+      <div class="row">
+        <div class="col-md-6"> <%= f.input :start_date, :label => "Contract Start Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+        <div class="col-md-6"> <%= f.input :end_date, :label => "Contract End Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+      </div>
+    </div>
+
+    <div id="parties">
+      <div class="strike">
+        <span><h3 class="text-center"><b>INVOLVED PARTIES</b></h3></span>
+      </div>
+
+      <%= f.simple_fields_for :parties do |party| %>
+        <%= render 'party_fields', :f => party %>
+      <% end %>
+      
+      <div class="pull-right">
+        <%= link_to_add_association '<i class="fa fa-plus"></i> Add Party'.html_safe, f, :parties %>
+      </div>
+    </div>
+
+    <br>
+
+    <div id="financial_terms">
+      <div class="strike">
+        <span><h3 class="text-center"><b>FINANCIAL TERMS OF THE CONTRACT</b></h3></span>
+      </div>
+
+      <%= f.simple_fields_for :financial_term do |term| %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= term.input :payer, :label => "Payer:" %>
+            <%= term.input :payee, :label => "Payee:" %>
+            <%= term.input :amount, :label => "Amount:" %>
+            <%= term.input :frequency, :label => "Frequency:" %>
+          </div>
+          <div class="col-md-6">
+            <%= term.input :start_date, :label => "Term Start Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %>
+            <%= term.input :end_date, :label => "Term End Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %>
+            <%= term.input :escalation_rate, :label => "Escalation Rate:" %>
+            <%= term.input :advance, :label => "Advance:" %>
+            <%= term.input :deposit, :label => "Deposit:" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="committees">
+      <div class="strike">
+        <span><h3 class="text-center"><b>COMMITTEES FORMED IN RELATION TO THE CONTRACT</b></h3></span>
+      </div>
+
+      <%= f.simple_fields_for :committees do |committee| %>
+        <%= render 'committee_fields', :f => committee %>
+      <% end %>
+      
+      <div class="pull-right">
+        <%= link_to_add_association '<i class="fa fa-plus"></i> Add Committee'.html_safe, f, :committees %>
+      </div>
+    </div>
+
+    <div id="physical_scope">
+      <div class="strike">
+        <span><h3 class="text-center"><b>PHYSICAL SCOPE OF THE CONTRACT</b></h3></span>
+      </div>
+
+      <%= f.simple_fields_for :physical_scope do |pscope| %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= pscope.input :address, :label => "Complete Address of Space/Building Leased​:" %>
+            <%= pscope.input :boundaries, :label => "Boundaries:" %>
+          </div>
+          <div class="col-md-6">
+            <%= pscope.input :land_area, :label => "Total Land Area​ (in square meters):" %>
+            <%= pscope.input :use_of_premises, :label => "Use of Premises:" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "btn btn-success pull-right" %>
   </div>
 <% end %>

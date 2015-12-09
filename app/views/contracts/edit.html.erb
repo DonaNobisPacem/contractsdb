@@ -1,6 +1,14 @@
-<h1>Editing Contract</h1>
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h1 class="panel-heading">Editing Contract</h1>
+	</div>
+	<div class="panel-body">
+		<%= render 'form' %>
+	</div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @contract %> |
-<%= link_to 'Back', contracts_path %>
+<div class="pull-right">
+	<%= link_to 'Show', @contract %> |
+	<%= link_to 'Delete', @contract, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+	<%= link_to 'Back', "javascript:history.back()" %>
+</div>

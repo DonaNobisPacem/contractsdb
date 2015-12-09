@@ -56,7 +56,7 @@
 
 	    <div id="financial_terms">
 	        <div class="strike">
-				<span><h3 class="text-center"><b>FINANCIAL TERMS</b></h3></span>
+				<span><h3 class="text-center"><b>FINANCIAL TERMS OF THE CONTRACT</b></h3></span>
 			</div>
 			<div class="row">
 				<div class="col-md-1"></div>
@@ -69,7 +69,7 @@
 				<div class="col-md-5">
 					<b>Start date:</b> <%= @financial_term.start_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.start_date.present? %> <br>
 					<b>End date:</b> <%= @financial_term.end_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.end_date.present? %> <br>
-					<b>Escalation rate:</b> <%= @financial_term.escalation_rate if @financial_term.present? %> <br>
+					<b>Escalation rate:</b> <%= number_with_precision( @financial_term.escalation_rate, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
 					<b>Advance:</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
 					<b>Deposit:</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? %>
 				</div>
@@ -82,23 +82,33 @@
 				<span><h3 class="text-center"><b>COMMITTEES FORMED IN RELATION TO THE CONTRACT</b></h3></span>
 			</div>
 
-			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-				<% @committees.each do |committee| %>
-					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="committee-<%= committee.id %>">
-							<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#committee-<%= committee.id %>" aria-expanded="true" aria-controls="committee-<%= committee.id %>">
-									<%= committee.committee_name %>
-								</a>
-							</h4>
-						</div>
-						<div id="committee-<%= committee.id %>" class="panel-collapse collapse in" role="tabpanel">
-							<div class="panel-body">
-								<%= simple_format(committee.responsibilities) %>
+			<div class="row">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<% @committees.each do |committee| %>
+						<div class="col-md-4">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading-<%= committee.id %>">
+									<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#committee-<%= committee.id %>" aria-expanded="false" aria-controls="committee-<%= committee.id %>">
+											<%= committee.committee_name %>
+										</a>
+									</h4>
+								</div>
+								<div id="committee-<%= committee.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= committee.id %>">
+									<div class="panel-body">
+										<b>Responsibilities:</b>
+										<%= simple_format(committee.responsibilities) %>
+
+										<b>Members: </b><br>
+										<% committee.committee_members.order("leader desc").each do |member| %>
+											<li><%= member.member_name %> <%= icon("star") if member.leader %></li>
+										<% end %>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				<% end %>
+					<% end %>
+				</div>
 			</div>
 
 		</div>
@@ -126,7 +136,7 @@
 <div class="pull-right">
 	<%= link_to 'Edit', edit_contract_path(@contract) %> |
 	<%= link_to 'Delete', @contract, method: :delete, data: { confirm: 'Are you sure?' } %> | 
-	<%= link_to 'Back', contracts_path %>
+	<%= link_to 'Back', "javascript:history.back()" %>
 </div>
 
 <!-- # Type of Contract​ (REQUIRED)​

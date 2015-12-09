@@ -19,10 +19,23 @@ class ContractsController < ApplicationController
   # GET /contracts/new
   def new
     @contract = Contract.new
+
+    @contract.build_financial_term
+    @contract.build_physical_scope
+
+    @contract.parties.build
+    @contract.committees.build
+    #@contract.committees.committee_members.build
   end
 
   # GET /contracts/1/edit
   def edit
+    @contract.parties.build if @contract.parties.empty?
+    @contract.committees.build if @contract.committees.empty?
+    #@contract.committees.committee_members.build if @contract.committees.committee_members.empty?
+
+    @contract.build_financial_term if @contract.financial_term.nil?
+    @contract.build_physical_scope if @contract.physical_scope.nil?
   end
 
   # POST /contracts
@@ -97,6 +110,7 @@ class ContractsController < ApplicationController
           :_destroy
         ], 
         physical_scope_attributes: [
+          :id,
           :address,
           :land_area,
           :boundaries,
@@ -104,17 +118,17 @@ class ContractsController < ApplicationController
           :contract_id,
           :_destroy
         ],
-        commitees_attributes: [
+        committees_attributes: [
           :id,
           :committee_name,
-          :responsibilites,          
+          :responsibilities,          
           :contract_id,
           :_destroy,
-          commitee_members_attributes: [
+          committee_members_attributes: [
             :id,
             :member_name,
             :leader,
-            :commitee_id,
+            :committee_id,
             :_destroy
           ]
         ],

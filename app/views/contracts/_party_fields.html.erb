@@ -1,0 +1,12 @@
+<div class="nested-fields">
+	<div class="jumbotron">
+		<div class="pull-right">
+			<%= link_to_remove_association '<i class="fa fa-remove"></i>'.html_safe, f %>
+		</div>
+		<br>
+		<div class="container">
+			<%= f.input :party_name, :label => "Name of the Involved Party" %>
+			<%= f.input :external, :label => "Is External?" %>
+		</div>
+	</div>
+</div>

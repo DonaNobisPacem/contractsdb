@@ -2,7 +2,7 @@ module ContractsHelper
 	def conditional_div( contract_type )
 		case contract_type
 		when 1
-			return "panel-success"
+			return "panel-primary"
 		when 2
 			return "panel-info"
 		when 3

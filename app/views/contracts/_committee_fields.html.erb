@@ -1,0 +1,21 @@
+<div class="nested-fields">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pull-right">
+				<%= link_to_remove_association '<i class="fa fa-remove"></i>'.html_safe, f %>
+			</div>
+			<br>
+			<%= f.input :committee_name, :label => "Name of the Committee:" %>
+			<%= f.input :responsibilities, :label => "Responsibilities:" %>
+		</div>
+		<div class="panel-body">
+			<%= f.simple_fields_for :committee_members do |member| %>
+		        <%= render 'committee_member_fields', :f => member %>
+		    <% end %>
+		      
+		    <div class="pull-right">
+		        <%= link_to_add_association '<i class="fa fa-plus"></i> Add Member'.html_safe, f, :committee_members %>
+		    </div>
+		</div>
+	</div>
+</div>
