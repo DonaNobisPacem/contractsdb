@@ -101,12 +101,14 @@ RSpec.describe ContractsController, type: :controller do
     context "With a search parameter" do
       it "assigns only matching contracts as @contracts" do
         contract = Contract.create! valid_attributes
-        get :index, {params[:search] => "Valid"}, valid_session
+        Contract.reindex
+        get :index, {:search => "Valid"}, valid_session
         expect(assigns(:contracts).results).to eq([contract])
       end
 
       it "assigns only matching contracts as @contracts" do
         contract = Contract.create! valid_attributes
+        Contract.reindex
         get :index, {:search => "Invalid"}, valid_session
         expect(assigns(:contracts).results).not_to eq([contract])
       end

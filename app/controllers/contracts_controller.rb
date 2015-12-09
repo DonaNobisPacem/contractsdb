@@ -4,7 +4,7 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contracts.json
   def index
-    if params[:search].present?
+    if params[:search]
       @contracts = Contract.search(params[:search])
     else
       @contracts = Contract.all
