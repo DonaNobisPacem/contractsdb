@@ -69,6 +69,10 @@ class ContractsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contract
       @contract = Contract.find(params[:id])
+      @parties = @contract.parties
+      @committees = @contract.committees
+      @financial_term = @contract.financial_term
+      @physical_scope = @contract.physical_scope
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

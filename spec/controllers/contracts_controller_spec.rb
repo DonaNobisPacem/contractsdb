@@ -120,6 +120,10 @@ RSpec.describe ContractsController, type: :controller do
       contract = Contract.create! valid_attributes
       get :show, {:id => contract.to_param}, valid_session
       expect(assigns(:contract)).to eq(contract)
+      expect(assigns(:parties)).to eq(contract.parties)
+      expect(assigns(:committees)).to eq(contract.committees)
+      expect(assigns(:financial_term)).to eq(contract.financial_term)
+      expect(assigns(:physical_scope)).to eq(contract.physical_scope)
     end
   end
 

@@ -1,24 +1,163 @@
-<p id="notice"><%= notice %></p>
+<div class="panel <%= conditional_div(@contract.contract_type) %>">
+	<div class="panel-heading">
+		<div class="text-center">
+			<h1 class="panel-heading"><b><%= @contract.description %></b></h1>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div id="objectives">
+			<div class="strike">
+				<span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>
+			</div>
 
-<p>
-  <strong>Contract type:</strong>
-  <%= @contract.contract_type %>
-</p>
+			<div class="text-center">
+				<%= simple_format( @contract.objectives ) %>
+			</div>
 
-<p>
-  <strong>Objectives:</strong>
-  <%= @contract.objectives %>
-</p>
+			<div class="text-center">
+				<b>Start Date: </b> <%= @contract.start_date.strftime("%d %B %Y") %> | 
+	        	<b>End Date: </b> <%= @contract.end_date.strftime("%d %B %Y") %> 
+	        </div>
+        </div>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @contract.start_date %>
-</p>
+		<div id="parties">
+			<div class="strike">
+				<span><h3 class="text-center"><b>INVOLVED PARTIES</b></h3></span>
+			</div>
+	        <div class="row">
+	        	<div class="col-md-1"></div>
+	        	<div class="col-md-5">
+	        		<div class="panel panel-danger">
+	        			<div class="panel-heading text-center">
+	        				<b class="panel-heading">University of the Philippines Parties</b>
+	        			</div>
+	        			<div class="panel-body">
+	        				<% @parties.where(external: false).each do |party| %>
+	        					<li><%= party.party_name %></li>
+	        				<% end %>
+	        			</div>
+	        		</div>
+	        	</div>
+	        	<div class="col-md-5">
+	        		<div class="panel panel-info">
+	        			<div class="panel-heading text-center">
+	        				<b class="panel-heading">External Parties</b>
+	        			</div>
+	        			<div class="panel-body">
+	        				<% @parties.where(external: true).each do |party| %>
+	        					<li><%= party.party_name %></li>
+	        				<% end %>
+	        			</div>
+	        		</div>
+	        	</div>
+	        	<div class="col-md-1"></div>
+	        </div>
+	    </div>
 
-<p>
-  <strong>End date:</strong>
-  <%= @contract.end_date %>
-</p>
+	    <div id="financial_terms">
+	        <div class="strike">
+				<span><h3 class="text-center"><b>FINANCIAL TERMS</b></h3></span>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<b>Payer:</b> <%= @financial_term.payer if @financial_term.present? %> <br>
+					<b>Payee:</b> <%= @financial_term.payee if @financial_term.present? %> <br>
+					<b>Amount:</b> <%= number_with_precision( @financial_term.amount, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
+					<b>Frequency:</b> <%= @financial_term.frequency if @financial_term.present? %>
+				</div>
+				<div class="col-md-5">
+					<b>Start date:</b> <%= @financial_term.start_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.start_date.present? %> <br>
+					<b>End date:</b> <%= @financial_term.end_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.end_date.present? %> <br>
+					<b>Escalation rate:</b> <%= @financial_term.escalation_rate if @financial_term.present? %> <br>
+					<b>Advance:</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
+					<b>Deposit:</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? %>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
 
-<%= link_to 'Edit', edit_contract_path(@contract) %> |
-<%= link_to 'Back', contracts_path %>
+		<div id="committees">
+			<div class="strike">
+				<span><h3 class="text-center"><b>COMMITTEES FORMED IN RELATION TO THE CONTRACT</b></h3></span>
+			</div>
+
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<% @committees.each do |committee| %>
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="committee-<%= committee.id %>">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#committee-<%= committee.id %>" aria-expanded="true" aria-controls="committee-<%= committee.id %>">
+									<%= committee.committee_name %>
+								</a>
+							</h4>
+						</div>
+						<div id="committee-<%= committee.id %>" class="panel-collapse collapse in" role="tabpanel">
+							<div class="panel-body">
+								<%= simple_format(committee.responsibilities) %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+
+		<div id="physical_scope">
+			<div class="strike">
+				<span><h3 class="text-center"><b>PHYSICAL SCOPE OF THE CONTRACT</b></h3></span>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<b>Complete Address of Space/Building Leased​:</b> <%= @physical_scope.address if @physical_scope.present? %> <br>
+					<b>Boundaries​:</b> <%= simple_format(@physical_scope.boundaries) if @physical_scope.present? %>
+				</div>
+				<div class="col-md-5">
+					<b>Total Land Area​ (in square meters):</b> <%= number_with_precision( @physical_scope.land_area, precision: 2, delimiter: ',' ) if @physical_scope.present? %> <br>
+					<b>Use of Premises:</b> <%= simple_format(@physical_scope.use_of_premises) if @physical_scope.present? %>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="pull-right">
+	<%= link_to 'Edit', edit_contract_path(@contract) %> |
+	<%= link_to 'Delete', @contract, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+	<%= link_to 'Back', contracts_path %>
+</div>
+
+<!-- # Type of Contract​ (REQUIRED)​
+#   Memorandum of Understanding​ (Option 1)​
+#   Memorandum of Agreement​ (Option 2)​
+#   Contract of Lease​ (Option 3)​
+# Objectives of the Contract​ (REQUIRED) - expected input: text​
+# Parties Involved​ (REQUIRED)​
+# ​  Field: ​University of the Philippines (can be more than 1)
+#   Indicate UP units involved​ - expected input: text​
+#   External Parties
+#   Indicate organizations (can be more than 1)​ - expected input: text​
+# Start Date of Contract​ - REQUIRED - expected input: DD MMMM YYYY​
+# End Date of Contract​ - REQUIRED - expected input: DD MMMM YYYY​
+# Financial Terms​ - Ask User: Applicable or Not Applicable / Automatically required if Contract of Lease
+#   Payment​ (REQUIRED if Applicable)​
+#   Payer​​ - expected input - text 
+#   Payee​ - expected input - text​
+#   Amount (in PhP)​ - expected input - numeric value with two decimal places
+#   Frequency​ - expected input - Options: Monthly, Semi-Annually, Annually, User Indicated Text ​
+#   Start Date of Payment​ - expected input - DD MMMM YYYY​
+#   End Date of Payment​ - expected input - DD MMMM YYYY​
+#   Escalation Rate​ - expected input - numeric value​ in percent
+#   Advance Payment​ - expected input - numeric value with two decimal places​
+#   Security Deposit ​- expected input - numeric value with two decimal places​
+# Committees/Groups Formed in relation to the Contract​ - As User: Applicable or Not Applicable​
+#   Member of the Committee/Group and his/her Organization​​ (REQUIRED if Applicable)​ - multiple entries allowed - expected input: text
+#   Leader of the Committee/Group and his/her Organization (REQUIRED if Applicable)​ - multiple entries allowed - expected input: text
+#   Responsibilities of the Committee/Group​ (REQUIRED if Applicable)​ - multiple entries allowed - expected input: text
+# Physical Scope of Contract - Ask User: Applicable or Not Applicable / Automatically required if Contract of Lease
+#   Complete Address of Space/Building Leased​ - expected input: text​
+#   Total Land Area​ (in square meters)- expected input: ​numeric value with two decimal places 
+#   Boundaries​ - North: text input; South: text input; East: text input; West: text input​
+#   Use of Premises ​- expected input: text​ -->
