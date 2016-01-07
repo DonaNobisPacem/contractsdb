@@ -106,7 +106,7 @@
 
 										<b>Members: </b><br>
 										<% committee.committee_members.order("leader desc").each do |member| %>
-											<li><%= member.member_name %> <%= icon("star") if member.leader %></li>
+											<li><%= member.member_name %> <%= icon("star", style: "color:yellow") if member.leader %></li>
 										<% end %>
 									</div>
 								</div>
