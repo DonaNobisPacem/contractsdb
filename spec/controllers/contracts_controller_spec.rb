@@ -26,9 +26,12 @@ RSpec.describe ContractsController, type: :controller do
   let(:valid_attributes) {
     {
       contract_type: 1,
+      contract_name: "Contract Name",
       objectives: "Valid objective",
-      start_date: DateTime.now,
-      end_date: DateTime.now + 10,
+      confirmation_date: DateTime.now,
+      approval_date: DateTime.now + 10,
+      start_date: DateTime.now + 20,
+      end_date: DateTime.now + 30,
       parties_attributes: [
         {
           party_name: "UP party",
@@ -180,9 +183,12 @@ RSpec.describe ContractsController, type: :controller do
       let(:new_attributes) {
         {
           contract_type: 1,
+          contract_name: "Updated  Name",
           objectives: "Updated objective",
-          start_date: DateTime.now,
-          end_date: DateTime.now + 10,
+          confirmation_date: DateTime.now,
+          approval_date: DateTime.now + 10,
+          start_date: DateTime.now + 20,
+          end_date: DateTime.now + 30,
           parties_attributes: [
             {
               party_name: "UP party",

@@ -1,9 +1,12 @@
 FactoryGirl.define do
   factory :contract do
     contract_type 1
+    contract_name { FFaker::Education.degree }
 	objectives { FFaker::BaconIpsum.paragraph }
-	start_date DateTime.now
-	end_date DateTime.now + 10
+	confirmation_date DateTime.now
+	approval_date DateTime.now + 10
+	start_date DateTime.now + 20
+	end_date DateTime.now + 30
 	# payment_payer { FFaker::Company.name }
 	# payment_payee { FFaker::Company.name }
 	# payment_amount "9.99"

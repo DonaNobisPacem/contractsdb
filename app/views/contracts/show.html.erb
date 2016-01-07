@@ -1,7 +1,10 @@
 <div class="panel <%= conditional_div(@contract.contract_type) %>">
 	<div class="panel-heading">
 		<div class="text-center">
-			<h1 class="panel-heading"><b><%= @contract.description %></b></h1>
+			<h1 class="panel-heading">
+				<b><%= @contract.contract_name %></b> <br>
+				<small><%= @contract.description %></small>
+			</h1>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -10,13 +13,15 @@
 				<span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>
 			</div>
 
-			<div class="text-center">
+			<div>
 				<%= simple_format( @contract.objectives ) %>
 			</div>
-
+			<br>
 			<div class="text-center">
-				<b>Start Date: </b> <%= @contract.start_date.strftime("%d %B %Y") %> | 
-	        	<b>End Date: </b> <%= @contract.end_date.strftime("%d %B %Y") %> 
+				<b>BOR Confirmation Date: </b> <%= @contract.confirmation_date.strftime("%d %B %Y") %> <br>
+				<b>BOR Approval Date: </b> <%= @contract.approval_date.strftime("%d %B %Y") %> <br>
+				<b>Effective Start Date: </b> <%= @contract.start_date.strftime("%d %B %Y") %> <br> 
+	        	<b>Effective End Date: </b> <%= @contract.end_date.strftime("%d %B %Y") %> 
 	        </div>
         </div>
 

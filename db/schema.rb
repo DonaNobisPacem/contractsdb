@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203104942) do
+ActiveRecord::Schema.define(version: 20160107023706) do
 
   create_table "committee_members", force: :cascade do |t|
     t.string   "member_name",  limit: 255
@@ -40,12 +40,15 @@ ActiveRecord::Schema.define(version: 20151203104942) do
   end
 
   create_table "contracts", force: :cascade do |t|
-    t.integer  "contract_type", limit: 4
-    t.text     "objectives",    limit: 65535
+    t.integer  "contract_type",     limit: 4
+    t.text     "objectives",        limit: 65535
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "contract_name",     limit: 255
+    t.datetime "confirmation_date"
+    t.datetime "approval_date"
   end
 
   create_table "financial_terms", force: :cascade do |t|

@@ -7,17 +7,36 @@ RSpec.describe Contract, type: :model do
 
   describe "ActiveModel Validations" do
   	it { should validate_presence_of(:contract_type) }
-  	it { should validate_presence_of(:objectives) }
+  	it { should validate_presence_of(:contract_name) }
+    it { should validate_presence_of(:objectives) }
+    it { should validate_presence_of(:confirmation_date) }
+    it { should validate_presence_of(:approval_date) }
   	it { should validate_presence_of(:start_date) }
   	it { should validate_presence_of(:end_date) }
 
   	context "Date Validations" do
+      it "is valid when the confirmation date <= approval date" do
+        expect( FactoryGirl.build(:contract, confirmation_date: DateTime.now, approval_date: DateTime.now + 10) ).to be_valid
+      end
+
+      it "is invalid when the confirmation date is > approval date" do
+        expect( FactoryGirl.build(:contract, confirmation_date: DateTime.now, approval_date: DateTime.now - 10) ).not_to be_valid
+      end
+
+      it "is valid when the approval date <= start date" do
+        expect( FactoryGirl.build(:contract, approval_date: DateTime.now + 10, start_date: DateTime.now + 20) ).to be_valid
+      end
+
+      it "is invalid when the approval date is > start date" do
+        expect( FactoryGirl.build(:contract, approval_date: DateTime.now + 20, start_date: DateTime.now + 10 ) ).not_to be_valid
+      end
+
   		it "is valid when the contract start date <= contract end date" do
-		    expect( FactoryGirl.build(:contract, start_date: DateTime.now, end_date: DateTime.now + 10) ).to be_valid
+		    expect( FactoryGirl.build(:contract, start_date: DateTime.now + 20, end_date: DateTime.now + 30) ).to be_valid
 		  end
 
   		it "is invalid when the contract start date is > contract end date" do
-  		  expect( FactoryGirl.build(:contract, start_date: DateTime.now, end_date: DateTime.now - 10) ).not_to be_valid
+  		  expect( FactoryGirl.build(:contract, start_date: DateTime.now + 30, end_date: DateTime.now + 20) ).not_to be_valid
   		end
   	end
 

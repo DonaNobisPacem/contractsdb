@@ -92,7 +92,10 @@ class ContractsController < ApplicationController
     def contract_params
       params.require(:contract).permit(
         :contract_type, 
+        :contract_name,
         :objectives, 
+        :confirmation_date,
+        :approval_date,
         :start_date, 
         :end_date, 
         financial_term_attributes: [

@@ -1,6 +1,9 @@
 class Contract < ActiveRecord::Base
 	validates :contract_type, presence: true
+	validates :contract_name, presence: true
 	validates :objectives, presence: true
+	validates :confirmation_date, presence: true
+	validates :approval_date, presence: true
 	validates :start_date, presence: true
 	validates :end_date, presence: true
 
@@ -25,10 +28,18 @@ class Contract < ActiveRecord::Base
 
 	private
 		def check_contract_date
-			if start_date.present? && end_date.present?
+			if confirmation_date.present? && approval_date.present? && start_date.present? && end_date.present?
+				if confirmation_date > approval_date
+					errors[:confirmation_date] << "The BOR Confirmation Date cannot be later than the BOR Approval Date!"
+					errors[:approval_date] << "The BOR Approval Date cannot be earlier than the BOR Confirmation Date!"
+				end
+				if approval_date > start_date
+					errors[:approval_date] << "The BOR Approval Date cannot be later than the Effectivity Start Date!"
+					errors[:start_date] << "The Effectivity Start Date cannot be earlier than the BOR Approval Date!"
+				end
 				if start_date > end_date
-					errors[:start_date] << "The start date cannot be greater than the end date!"
-					errors[:end_date] << "The start date cannot be greater than the end date!"
+					errors[:start_date] << "The Effectivity Start Date cannot be later than the Effectivity End Date!"
+					errors[:end_date] << "The Effectivity End Date cannot be earlier than the Effectivity Start Date!"
 				end
 			end
 		end

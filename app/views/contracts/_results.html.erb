@@ -5,11 +5,12 @@
         <div class="panel <%= conditional_div(contract.contract_type) %>">
           <div class="panel-heading">
             <div class="text-center">
-              <%= contract.description %>
+              <b><%= contract.contract_name %></b> <br>
+              <small><%= contract.description %></small>
             </div>
           </div>
           <div class="panel-body">
-            <b>Objectives: </b> <%= truncate( simple_format( contract.objectives ), length: 50 ) %> <br>
+            <b>Objectives: </b> <%= truncate( contract.objectives , length: 100 ) %> <br>
             <b>Start Date: </b> <%= contract.start_date.strftime("%d %B %Y") %> <br>
             <b>End Date: </b> <%= contract.end_date.strftime("%d %B %Y") %> <br>
           </div>

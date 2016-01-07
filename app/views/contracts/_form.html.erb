@@ -2,6 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :contract_name, :label => "Contract Name:" %>
     <%= f.input :contract_type, :collection => ContractType.all, :label_method => :description, :include_blank => false, :label => "Contract Type:" %>
 
     <div id="objectives">
@@ -9,10 +10,14 @@
         <span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>
       </div>
 
-      <%= f.input :objectives, :label => "Contract Objectives:" %>
+      <%= f.input :objectives, :label => "Contract Objectives:", :input_html => {:rows => 5} %>
       <div class="row">
-        <div class="col-md-6"> <%= f.input :start_date, :label => "Contract Start Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
-        <div class="col-md-6"> <%= f.input :end_date, :label => "Contract End Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+        <div class="col-md-6"> <%= f.input :confirmation_date, :label => "BOR Confirmation Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+        <div class="col-md-6"> <%= f.input :approval_date, :label => "BOR Approval Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"> <%= f.input :start_date, :label => "Effective Start Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
+        <div class="col-md-6"> <%= f.input :end_date, :label => "Effective End Date:", :as => :date_picker, :placeholder => "DD/MM/YYYY" %> </div>
       </div>
     </div>
 
@@ -79,11 +84,11 @@
         <div class="row">
           <div class="col-md-6">
             <%= pscope.input :address, :label => "Complete Address of Space/Building Leased​:" %>
-            <%= pscope.input :boundaries, :label => "Boundaries:" %>
+            <%= pscope.input :boundaries, :label => "Boundaries:", :input_html => {:rows => 5} %>
           </div>
           <div class="col-md-6">
             <%= pscope.input :land_area, :label => "Total Land Area​ (in square meters):" %>
-            <%= pscope.input :use_of_premises, :label => "Use of Premises:" %>
+            <%= pscope.input :use_of_premises, :label => "Use of Premises:", :input_html => {:rows => 5} %>
           </div>
         </div>
       <% end %>

@@ -6,7 +6,7 @@
 			</div>
 			<br>
 			<%= f.input :committee_name, :label => "Name of the Committee:" %>
-			<%= f.input :responsibilities, :label => "Responsibilities:" %>
+			<%= f.input :responsibilities, :label => "Responsibilities:", :input_html => {:rows => 5} %>
 		</div>
 		<div class="panel-body">
 			<%= f.simple_fields_for :committee_members do |member| %>
