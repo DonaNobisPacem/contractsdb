@@ -1,4 +1,5 @@
 class ContractTypesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_contract_type, only: [:show, :edit, :update, :destroy]
 
   # GET /contract_types

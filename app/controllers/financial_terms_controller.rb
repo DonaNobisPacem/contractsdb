@@ -1,4 +1,5 @@
 class FinancialTermsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_financial_term, only: [:show, :edit, :update, :destroy]
 
   # GET /financial_terms

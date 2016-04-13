@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'carrierwave/test/matchers'
 require 'database_cleaner'
 require 'simplecov'
 SimpleCov.start
@@ -69,11 +70,25 @@ RSpec.configure do |config|
   config.before :each do
     Contract.reindex
   end
+
+  config.after(:all) do
+    if Rails.env.test? 
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/contracts"])
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/tmp"])
+    end 
+  end
 end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
+  end
+end
+
+if Rails.env.test? or Rails.env.cucumber?
+  CarrierWave.configure do |config|
+    config.storage = :file
+    config.enable_processing = false
   end
 end

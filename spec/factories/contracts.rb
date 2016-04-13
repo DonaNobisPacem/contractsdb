@@ -7,6 +7,7 @@ FactoryGirl.define do
 	approval_date DateTime.now + 10
 	start_date DateTime.now + 20
 	end_date DateTime.now + 30
+	attachment { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', 'upseal.png')) }
 	# payment_payer { FFaker::Company.name }
 	# payment_payee { FFaker::Company.name }
 	# payment_amount "9.99"

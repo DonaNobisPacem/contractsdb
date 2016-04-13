@@ -1,4 +1,5 @@
 class PhysicalScopesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_physical_scope, only: [:show, :edit, :update, :destroy]
 
   # GET /physical_scopes

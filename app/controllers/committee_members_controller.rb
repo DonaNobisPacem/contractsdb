@@ -1,4 +1,5 @@
 class CommitteeMembersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_committee_member, only: [:show, :edit, :update, :destroy]
 
   # GET /committee_members

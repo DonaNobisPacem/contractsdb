@@ -1,27 +1,27 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Contract Types</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @contract_types.each do |contract_type| %>
+<% if current_user.admin %>
+  <p id="notice"><%= notice %></p>
+  </br>
+  <h1><b>List of Contract Types</b></h1>
+  <%= link_to '<i class="fa fa-plus"></i> New Contract Type'.html_safe, new_contract_type_path, :class => "pull-right" %>
+  <table class="table table-hover table-responsive">
+    <thead>
       <tr>
-        <td><%= contract_type.description %></td>
-        <td><%= link_to 'Show', contract_type %></td>
-        <td><%= link_to 'Edit', edit_contract_type_path(contract_type) %></td>
-        <td><%= link_to 'Destroy', contract_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Description</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @contract_types.each do |contract_type| %>
+        <tr>
+          <td><%= contract_type.description %></td>
+          <td style="text-align: right;">
+             <%= link_to 'Edit', edit_contract_type_path(contract_type) %> | <%= link_to 'Delete', contract_type, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= render 'shared/unauthorized' %>
+<% end %>
 
-<br>
-
-<%= link_to 'New Contract type', new_contract_type_path %>

@@ -4,7 +4,8 @@
   <div class="form-inputs">
     <%= f.input :contract_name, :label => "Contract Name:" %>
     <%= f.input :contract_type, :collection => ContractType.all, :label_method => :description, :include_blank => false, :label => "Contract Type:" %>
-
+    <%= f.input :attachment, :label => "Contract File Attachment:" %>
+    
     <div id="objectives">
       <div class="strike">
         <span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>

@@ -2,12 +2,13 @@ class Contract < ActiveRecord::Base
 	validates :contract_type, presence: true
 	validates :contract_name, presence: true
 	validates :objectives, presence: true
-	validates :confirmation_date, presence: true
-	validates :approval_date, presence: true
 	validates :start_date, presence: true
 	validates :end_date, presence: true
+	validates :attachment, presence: true
 
-	validate :check_contract_date
+	validate :check_confirmation_approval_date
+	validate :check_approval_effective_date
+	validate :check_effective_contract_date
 	validate :check_contract_type
 
 	has_one :financial_term, dependent: :destroy, inverse_of: :contract
@@ -21,22 +22,34 @@ class Contract < ActiveRecord::Base
 	accepts_nested_attributes_for :committees, allow_destroy: true	
 
 	searchkick
+	mount_uploader :attachment, AttachmentUploader
 
 	def description
 		ContractType.find(contract_type).description
 	end
 
 	private
-		def check_contract_date
-			if confirmation_date.present? && approval_date.present? && start_date.present? && end_date.present?
+
+		def check_confirmation_approval_date
+			if confirmation_date.present? && approval_date.present?
 				if confirmation_date > approval_date
 					errors[:confirmation_date] << "The BOR Confirmation Date cannot be later than the BOR Approval Date!"
 					errors[:approval_date] << "The BOR Approval Date cannot be earlier than the BOR Confirmation Date!"
 				end
+			end
+		end
+
+		def check_approval_effective_date
+			if approval_date.present? && start_date.present?
 				if approval_date > start_date
 					errors[:approval_date] << "The BOR Approval Date cannot be later than the Effectivity Start Date!"
 					errors[:start_date] << "The Effectivity Start Date cannot be earlier than the BOR Approval Date!"
 				end
+			end
+		end
+
+		def check_effective_contract_date
+			if start_date.present? && end_date.present?
 				if start_date > end_date
 					errors[:start_date] << "The Effectivity Start Date cannot be later than the Effectivity End Date!"
 					errors[:end_date] << "The Effectivity End Date cannot be earlier than the Effectivity Start Date!"

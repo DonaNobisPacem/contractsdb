@@ -9,10 +9,9 @@ RSpec.describe Contract, type: :model do
   	it { should validate_presence_of(:contract_type) }
   	it { should validate_presence_of(:contract_name) }
     it { should validate_presence_of(:objectives) }
-    it { should validate_presence_of(:confirmation_date) }
-    it { should validate_presence_of(:approval_date) }
   	it { should validate_presence_of(:start_date) }
   	it { should validate_presence_of(:end_date) }
+    it { should validate_presence_of(:attachment) }
 
   	context "Date Validations" do
       it "is valid when the confirmation date <= approval date" do

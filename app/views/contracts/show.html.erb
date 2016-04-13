@@ -13,6 +13,9 @@
 				<span><h3 class="text-center"><b>OBJECTIVES</b></h3></span>
 			</div>
 
+			<%= link_to 'Download Contract File <i class="fa fa-file-pdf-o"></i>'.html_safe, @contract.attachment_url, target: "_blank", class: "pull-right" %>
+			<br>
+			
 			<div>
 				<%= simple_format( @contract.objectives ) %>
 			</div>
@@ -68,15 +71,15 @@
 				<div class="col-md-5">
 					<b>Payer:</b> <%= @financial_term.payer if @financial_term.present? %> <br>
 					<b>Payee:</b> <%= @financial_term.payee if @financial_term.present? %> <br>
-					<b>Amount:</b> <%= number_with_precision( @financial_term.amount, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
+					<b>Amount (PhP):</b> <%= number_with_precision( @financial_term.amount, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
 					<b>Frequency:</b> <%= @financial_term.frequency if @financial_term.present? %>
 				</div>
 				<div class="col-md-5">
 					<b>Start date:</b> <%= @financial_term.start_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.start_date.present? %> <br>
 					<b>End date:</b> <%= @financial_term.end_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.end_date.present? %> <br>
-					<b>Escalation rate:</b> <%= number_with_precision( @financial_term.escalation_rate, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
-					<b>Advance:</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
-					<b>Deposit:</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? %>
+					<b>Escalation rate:</b> <%= number_with_precision( @financial_term.escalation_rate, precision: 2, delimiter: ',' ) + "%" if @financial_term.present? %> <br>
+					<b>Advance (PhP):</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
+					<b>Deposit (PhP):</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? %>
 				</div>
 				<div class="col-md-1"></div>
 			</div>
@@ -106,7 +109,7 @@
 
 										<b>Members: </b><br>
 										<% committee.committee_members.order("leader desc").each do |member| %>
-											<li><%= member.member_name %> <%= icon("star", style: "color:yellow") if member.leader %></li>
+											<li><%= member.member_name %> <%= icon("star", style: "color:#aca87c") if member.leader %></li>
 										<% end %>
 									</div>
 								</div>

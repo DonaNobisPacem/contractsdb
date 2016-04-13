@@ -1,4 +1,5 @@
 class ContractsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_contract, only: [:show, :edit, :update, :destroy]
 
   # GET /contracts
@@ -97,7 +98,8 @@ class ContractsController < ApplicationController
         :confirmation_date,
         :approval_date,
         :start_date, 
-        :end_date, 
+        :end_date,
+        :attachment, 
         financial_term_attributes: [
           :id, 
           :payer,

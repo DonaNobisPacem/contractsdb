@@ -32,6 +32,7 @@ RSpec.describe ContractsController, type: :controller do
       approval_date: DateTime.now + 10,
       start_date: DateTime.now + 20,
       end_date: DateTime.now + 30,
+      attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', 'upseal.png')),
       parties_attributes: [
         {
           party_name: "UP party",

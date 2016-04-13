@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root 'contracts#index'
+
   resources :physical_scopes
   resources :financial_terms
   resources :committee_members
@@ -8,6 +9,12 @@ Rails.application.routes.draw do
   resources :parties
   resources :contract_types
   resources :contracts
+
+  get '/admin_panel' => 'users#admin'
+  devise_for :users
+  scope "/admin" do
+    resources :users
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

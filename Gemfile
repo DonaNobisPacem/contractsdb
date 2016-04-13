@@ -44,6 +44,12 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'shoulda-callback-matchers'
   gem 'simplecov', :require => false
+
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-passenger'
 end
 
 group :development do
@@ -70,5 +76,12 @@ gem 'google-webfonts-rails'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
+# File Handling
+gem 'carrierwave'
+
 # Search
 gem 'searchkick'
+
+gem 'devise'
+gem 'public_activity'
+gem 'figaro'

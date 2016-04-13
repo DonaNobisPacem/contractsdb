@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: pass
+  password: <%= ENV['default_database_password:'] %>
   socket: /var/run/mysqld/mysqld.sock
 
 development:
@@ -51,4 +51,4 @@ production:
   <<: *default
   database: contractsdb_production
   username: contractsdb
-  password: <%= ENV['CONTRACTSDB_DATABASE_PASSWORD'] %>
+  password: <%= ENV['contractsdb_database_password'] %>
