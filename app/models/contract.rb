@@ -4,11 +4,11 @@ class Contract < ActiveRecord::Base
 	validates :objectives, presence: true
 	validates :start_date, presence: true
 	validates :end_date, presence: true
-	validates :attachment, presence: true
+	# validates :attachment, presence: true
 
-	validate :check_confirmation_approval_date
-	validate :check_approval_effective_date
-	validate :check_effective_contract_date
+	# validate :check_confirmation_approval_date
+	# validate :check_approval_effective_date
+	# validate :check_effective_contract_date
 	validate :check_contract_type
 
 	has_one :financial_term, dependent: :destroy, inverse_of: :contract
