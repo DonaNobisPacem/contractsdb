@@ -2,8 +2,8 @@ class Contract < ActiveRecord::Base
 	validates :contract_type, presence: true
 	validates :contract_name, presence: true
 	validates :objectives, presence: true
-	validates :start_date, presence: true
-	validates :end_date, presence: true
+	# validates :start_date, presence: true
+	# validates :end_date, presence: true
 	# validates :attachment, presence: true
 
 	# validate :check_confirmation_approval_date
