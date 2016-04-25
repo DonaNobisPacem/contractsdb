@@ -21,10 +21,10 @@
 			</div>
 			<br>
 			<div class="text-center">
-				<b>BOR Confirmation Date: </b> <%= @contract.confirmation_date.try( :strftime, "%d %B %Y" ) %> <br>
-				<b>BOR Approval Date: </b> <%= @contract.approval_date.try( :strftime, "%d %B %Y" ) %> <br>
-				<b>Effective Start Date: </b> <%= @contract.start_date.try( :strftime, "%d %B %Y" ) %> <br> 
-	        	<b>Effective End Date: </b> <%= @contract.end_date.try( :strftime, "%d %B %Y" ) %> 
+				<b>BOR Confirmation Date: </b> <%= @contract.confirmation_date.try(:strftime, "%d %B %Y") %> <br>
+				<b>BOR Approval Date: </b> <%= @contract.approval_date.try(:strftime, "%d %B %Y") %> <br>
+				<b>Effective Start Date: </b> <%= @contract.start_date.try(:strftime, "%d %B %Y") %> <br> 
+	        	<b>Effective End Date: </b> <%= @contract.end_date.try(:strftime, "%d %B %Y") %> 
 	        </div>
         </div>
 
@@ -69,17 +69,17 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-5">
-					<b>Payer:</b> <%= @financial_term.payer if @financial_term.present? %> <br>
-					<b>Payee:</b> <%= @financial_term.payee if @financial_term.present? %> <br>
-					<b>Amount (PhP):</b> <%= number_with_precision( @financial_term.amount, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
-					<b>Frequency:</b> <%= @financial_term.frequency if @financial_term.present? %>
+					<b>Payer:</b> <%= @financial_term.payer if @financial_term.present? && @financial_term.payer.present? %> <br>
+					<b>Payee:</b> <%= @financial_term.payee if @financial_term.present? && @financial_term.payee.present? %> <br>
+					<b>Amount (PhP):</b> <%= number_with_precision( @financial_term.amount, precision: 2, delimiter: ',' ) if @financial_term.present? && @financial_term.amount.present? %> <br>
+					<b>Frequency:</b> <%= @financial_term.frequency if @financial_term.present? && @financial_term.frequency.present? %>
 				</div>
 				<div class="col-md-5">
 					<b>Start date:</b> <%= @financial_term.start_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.start_date.present? %> <br>
 					<b>End date:</b> <%= @financial_term.end_date.strftime("%d %B %Y") if @financial_term.present? && @financial_term.end_date.present? %> <br>
-					<b>Escalation rate:</b> <%= number_with_precision( @financial_term.escalation_rate, precision: 2, delimiter: ',' ) + "%" if @financial_term.present? %> <br>
-					<b>Advance (PhP):</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? %> <br>
-					<b>Deposit (PhP):</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? %>
+					<b>Escalation rate:</b> <%= number_with_precision( @financial_term.escalation_rate, precision: 2, delimiter: ',' ) + "%" if @financial_term.present? && @financial_term.escalation_rate.present? %> <br>
+					<b>Advance (PhP):</b> <%= number_with_precision( @financial_term.advance, precision: 2, delimiter: ',' ) if @financial_term.present? && @financial_term.advance.present? %> <br>
+					<b>Deposit (PhP):</b> <%= number_with_precision( @financial_term.deposit, precision: 2, delimiter: ',' ) if @financial_term.present? && @financial_term.deposit.present? %>
 				</div>
 				<div class="col-md-1"></div>
 			</div>
@@ -128,12 +128,12 @@
 			<div class="row">
 				<div class="col-md-1"></div>
 				<div class="col-md-5">
-					<b>Complete Address of Space/Building Leased​:</b> <%= @physical_scope.address if @physical_scope.present? %> <br>
-					<b>Boundaries​:</b> <%= simple_format(@physical_scope.boundaries) if @physical_scope.present? %>
+					<b>Complete Address of Space/Building Leased​:</b> <%= @physical_scope.address if @physical_scope.present? && @physical_scope.address.present? %> <br>
+					<b>Boundaries​:</b> <%= simple_format(@physical_scope.boundaries) if @physical_scope.present? && @physical_scope.boundaries.present? %>
 				</div>
 				<div class="col-md-5">
-					<b>Total Land Area​ (in square meters):</b> <%= number_with_precision( @physical_scope.land_area, precision: 2, delimiter: ',' ) if @physical_scope.present? %> <br>
-					<b>Use of Premises:</b> <%= simple_format(@physical_scope.use_of_premises) if @physical_scope.present? %>
+					<b>Total Land Area​ (in square meters):</b> <%= number_with_precision( @physical_scope.land_area, precision: 2, delimiter: ',' ) if @physical_scope.present? && @physical_scope.land_area.present? %> <br>
+					<b>Use of Premises:</b> <%= simple_format(@physical_scope.use_of_premises) if @physical_scope.present? && @physical_scope.use_of_premises.present? %>
 				</div>
 				<div class="col-md-1"></div>
 			</div>

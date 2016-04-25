@@ -11,8 +11,8 @@
           </div>
           <div class="panel-body">
             <b>Objectives: </b> <%= truncate( contract.objectives , length: 100 ) %> <br>
-            <b>Start Date: </b> <%= contract.start_date.strftime("%d %B %Y") %> <br>
-            <b>End Date: </b> <%= contract.end_date.strftime("%d %B %Y") %> <br>
+            <b>Start Date: </b> <%= contract.start_date.try(:strftime, "%d %B %Y") %> <br>
+            <b>End Date: </b> <%= contract.end_date.try(:strftime, "%d %B %Y") %> <br>
           </div>
         </div>
       </div>
