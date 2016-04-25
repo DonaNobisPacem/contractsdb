@@ -21,10 +21,10 @@
 			</div>
 			<br>
 			<div class="text-center">
-				<b>BOR Confirmation Date: </b> <%= @contract.confirmation_date.strftime("%d %B %Y") %> <br>
-				<b>BOR Approval Date: </b> <%= @contract.approval_date.strftime("%d %B %Y") %> <br>
-				<b>Effective Start Date: </b> <%= @contract.start_date.strftime("%d %B %Y") %> <br> 
-	        	<b>Effective End Date: </b> <%= @contract.end_date.strftime("%d %B %Y") %> 
+				<b>BOR Confirmation Date: </b> <%= @contract.confirmation_date.try( :strftime, "%d %B %Y" ) %> <br>
+				<b>BOR Approval Date: </b> <%= @contract.approval_date.try( :strftime, "%d %B %Y" ) %> <br>
+				<b>Effective Start Date: </b> <%= @contract.start_date.try( :strftime, "%d %B %Y" ) %> <br> 
+	        	<b>Effective End Date: </b> <%= @contract.end_date.try( :strftime, "%d %B %Y" ) %> 
 	        </div>
         </div>
 
