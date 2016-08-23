@@ -7,8 +7,12 @@ module ContractsHelper
 			return "panel-info"
 		when 3
 			return "panel-warning"
-		else
+		when 4
+			return "panel-success"
+		when 5
 			return "panel-danger"
+		else
+			return "panel-default"
 		end
 	end
 end
