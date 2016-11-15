@@ -1,9 +1,9 @@
-<div class="row text-center">
+<div class="row type">
   <div class="form-inline">
     <%= form_tag contracts_path, method: :get, role: "sort" do %>
       <div class="form-group">
         <%= label_tag :sort, "Sort by Contract Type:", class: "form-label" %>
-        <%= select_tag :sort, options_from_collection_for_select(ContractType.all, :id, :description), class: "form-control" %>
+        <%= select_tag :sort, options_from_collection_for_select(ContractType.all, :id, :description), include_blank: true, class: "form-control" %>
         <%= button_tag "<i class=\"fa fa-sort\"></i> Sort".html_safe, class: "btn btn-primary", type: :submit %>
       </div>
     <% end %>
