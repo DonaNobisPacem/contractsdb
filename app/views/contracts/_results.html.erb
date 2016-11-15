@@ -1,3 +1,15 @@
+<div class="pull-left">
+  <div class="form-inline">
+    <%= form_tag contracts_path, method: :get, role: "sort" do %>
+      <div class="form-group">
+        <%= label_tag :sort, "Sort by Contract Type:", class: "form-label" %>
+        <%= select_tag :sort, options_from_collection_for_select(ContractType.all, :id, :description), class: "form-control" %>
+        <%= button_tag "<i class=\"fa fa-sort\"></i> Sort".html_safe, class: "btn btn-primary", type: :submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div class="row">
   <% @contracts.each do |contract| %>
     <%= link_to contract do %>

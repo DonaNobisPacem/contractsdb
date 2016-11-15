@@ -7,6 +7,8 @@ class ContractsController < ApplicationController
   def index
     if params[:search].present?
       @contracts = Contract.search(params[:search])
+    elsif params[:sort].present?
+      @contracts = Contract.where(contract_type: params[:sort])
     else
       @contracts = Contract.all
     end
