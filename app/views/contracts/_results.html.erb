@@ -1,4 +1,4 @@
-<div class="pull-left">
+<div class="row">
   <div class="form-inline">
     <%= form_tag contracts_path, method: :get, role: "sort" do %>
       <div class="form-group">
@@ -9,6 +9,7 @@
     <% end %>
   </div>
 </div>
+
 
 <div class="row">
   <% @contracts.each do |contract| %>
